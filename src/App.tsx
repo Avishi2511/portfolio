@@ -45,7 +45,7 @@ const panels: Record<PanelKey, () => JSX.Element> = {
 };
 
 export default function App() {
-  const [sel, setSel] = useState<PanelKey>("tools");
+  const [sel, setSel] = useState<PanelKey>("about");
   const selIdx = segments.findIndex((s) => s.key === sel);
   const current = segments[selIdx];
   const Panel = panels[sel];
