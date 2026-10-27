@@ -7,7 +7,7 @@ export const links = {
   email: "mailto:avishimittal2004@gmail.com",
   linkedin: "https://www.linkedin.com/in/avishi-mittal",
   x: "https://x.com/avishi_mit6693",
-  resume: "/Avishi_Mittal_v1.2.pdf",
+  resume: "https://drive.google.com/file/d/1BpAYRpA3q4L6YlbAjZPKXZ1bLh8iCM8f/view?usp=sharing",
 };
 
 export interface Segment {
@@ -25,7 +25,7 @@ export const segments: Segment[] = [
   { key: "history", folder: "run_history", label: "Experience", grow: 13, delay: ".17s", title: "Experience and education", hint: "Where it has run, and how it was trained." },
   { key: "tools", folder: "tools", label: "Projects", grow: 16, delay: ".29s", title: "Projects", hint: "Each project as a call and what it returns." },
   { key: "skills", folder: "skills", label: "Good at", grow: 11, delay: ".41s", title: "What I'm good at", hint: "Situations it is called for, and the skill that answers." },
-  { key: "traces", folder: "traces", label: "Writing", grow: 11, delay: ".53s", title: "Writing", hint: "Each post as a run. Longer bar, longer read." },
+  { key: "traces", folder: "traces", label: "Writing", grow: 11, delay: ".53s", title: "Writing", hint: "I write what I learn." },
   { key: "recall", folder: "most_retrieved", label: "Off the clock", grow: 10, delay: ".65s", title: "Off the clock", hint: "What it retrieves most often when nobody is prompting it." },
 ];
 
@@ -84,6 +84,31 @@ export const tools: Tool[] = [
     repo: "property-search",
   },
   {
+    name: "smart_ehr",
+    arg: "patient",
+    status: "shipped",
+    does: "FHIR R4 backend (8+ resource types), React front end, and a multi-modal LSTM trained on 18,000+ ADNI visits at 0.95 R².",
+    stack: ["Python", "FastAPI", "React", "FHIR R4", "LSTM"],
+    repo: "Smart-EHR-System",
+    demo: "https://smart-ehr-system.vercel.app",
+  },
+  {
+    name: "research_rag",
+    arg: "question",
+    status: "shipped",
+    does: "Multi-document hybrid RAG: BM25 plus embeddings, configurable weighting and metadata filters, Gemini answers with source citations.",
+    stack: ["Python", "FastAPI", "ChromaDB", "SQLite"],
+    repo: "research-rag",
+  },
+  {
+    name: "bug_tracker",
+    arg: "bug",
+    status: "shipped",
+    does: "MERN bug tracker with 3 roles, JWT auth, rate limiting and public bug intake. Deployed on Vercel and Render.",
+    stack: ["React", "Node.js", "MongoDB", "JWT"],
+    repo: "bug-tracker",
+  },
+  {
     name: "webhook_service",
     arg: "event",
     status: "experimental",
@@ -99,31 +124,6 @@ export const tools: Tool[] = [
     does: "A LiveKit phone agent that runs a 5-question screen and classifies the candidate as qualified, maybe or rejected. Saves JSON and CSV.",
     stack: ["Python", "LiveKit", "Deepgram", "OpenAI"],
     repo: "candidate-screener",
-  },
-  {
-    name: "research_rag",
-    arg: "question",
-    status: "shipped",
-    does: "Multi-document hybrid RAG: BM25 plus embeddings, configurable weighting and metadata filters, Gemini answers with source citations.",
-    stack: ["Python", "FastAPI", "ChromaDB", "SQLite"],
-    repo: "research-rag",
-  },
-  {
-    name: "smart_ehr",
-    arg: "patient",
-    status: "shipped",
-    does: "FHIR R4 backend (8+ resource types), React front end, and a multi-modal LSTM trained on 18,000+ ADNI visits at 0.95 R².",
-    stack: ["Python", "FastAPI", "React", "FHIR R4", "LSTM"],
-    repo: "Smart-EHR-System",
-    demo: "https://smart-ehr-system.vercel.app",
-  },
-  {
-    name: "bug_tracker",
-    arg: "bug",
-    status: "shipped",
-    does: "MERN bug tracker with 3 roles, JWT auth, rate limiting and public bug intake. Deployed on Vercel and Render.",
-    stack: ["React", "Node.js", "MongoDB", "JWT"],
-    repo: "bug-tracker",
   },
 ];
 

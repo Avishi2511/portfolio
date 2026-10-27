@@ -47,15 +47,18 @@ export default function About() {
       <aside className="badge" aria-label="Agent ID badge">
         <span className="hole" />
         <div className="mono bhead">agent id · avishi-1</div>
-        <div className="mono mono-photo" aria-hidden="true">AM</div>
-        <div className="disp bname">Avishi Mittal</div>
-        <div className="brole">AI Engineer · a21.ai</div>
+        <div className="bid">
+          <img className="bphoto" src="/avishi.jpg" alt="Avishi Mittal" />
+          <div className="bwho">
+            <div className="disp bname">Avishi Mittal</div>
+            <div className="brole">AI Engineer · a21.ai</div>
+          </div>
+        </div>
         <dl className="mono bfacts">
           <div><dt>base</dt><dd>New Delhi</dd></div>
-          <div><dt>trained</dt><dd>Thapar Institute</dd></div>
+          <div><dt>uptime</dt><dd>21 yrs</dd></div>
+          <div><dt>trained</dt><dd>Thapar University</dd></div>
           <div><dt>certified</dt><dd>AWS SA Associate</dd></div>
-          <div><dt>mode</dt><dd>read-only</dd></div>
-          <div><dt>inputs</dt><dd>none</dd></div>
         </dl>
         <div className="barcode" aria-hidden="true" />
       </aside>

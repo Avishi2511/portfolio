@@ -16,30 +16,28 @@ export default function Recall() {
       <div className="shelf">
         <figure className="obj o-book">
           <div className="book">
+            <img src="/covers/metamorphosis.jpg" alt="Metamorphosis by Franz Kafka, book cover" />
             <i className="ribbon" />
-            <span className="mono bk">novella · 1915</span>
-            <span className="disp bt">Metamorphosis</span>
-            <span className="mono bk">Franz Kafka</span>
           </div>
-          <figcaption className="mono">book</figcaption>
+          <figcaption className="mono">book · Metamorphosis</figcaption>
         </figure>
 
         <figure className="obj o-show">
           <div className="tv">
+            <img src="/covers/fleabag.jpg" alt="Fleabag, show artwork" />
             <span className="mono live">● now playing</span>
-            <span className="disp tvt">Fleabag</span>
-            <span className="mono tvs">you will, in fact, rewatch it</span>
           </div>
-          <figcaption className="mono">show</figcaption>
+          <figcaption className="mono">show · Fleabag</figcaption>
         </figure>
 
         <figure className="obj o-band">
           <div className="vinyl">
             <div className="disc">
-              <span className="lab disp">The 1975</span>
+              <img className="lab" src="/covers/the1975.jpg" alt="The 1975, I like it when you sleep album cover" />
+              <span className="spindle" />
             </div>
           </div>
-          <figcaption className="mono">band</figcaption>
+          <figcaption className="mono">band · The 1975</figcaption>
         </figure>
 
         <figure className="obj o-site">
@@ -49,11 +47,12 @@ export default function Recall() {
               <span className="mono url">substack.com</span>
             </div>
             <div className="wbody">
+              <img className="wlogo" src="/covers/substack.svg" alt="" />
               <span className="disp wt">Substack</span>
               <span className="mono wsub">⌁ 14 tabs open, 0 regrets</span>
             </div>
           </div>
-          <figcaption className="mono">website</figcaption>
+          <figcaption className="mono">website · Substack</figcaption>
         </figure>
       </div>
 
@@ -69,7 +68,7 @@ export default function Recall() {
         <div className="tl"><span className="k">* * * * *</span>&nbsp;&nbsp;<span>code</span> <span className="c"># never exits</span><span className="cur" /></div>
       </div>
 
-      <div className="lbl card-lbl">logit_bias = −100 · tokens it will never emit</div>
+      <div className="lbl card-lbl">things i don’t like · logit_bias = −100</div>
       <div className="banned">
         {banned.map((b, i) => (
           <span className={`ban s${b.s} r${i % 4}`} key={b.t}>

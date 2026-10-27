@@ -48,7 +48,7 @@ function Card({ t, n }: { t: Tool; n: number }) {
           <div className="jl">
             <span className="jk">"source"</span><span className="jp">:</span>
             <span className="jv">
-              <a href={`${GITHUB}/${t.repo}`} target="_blank" rel="noreferrer">{q(t.repo)}</a>
+              <a className="jsrc" href={`${GITHUB}/${t.repo}`} target="_blank" rel="noreferrer">{q(t.repo)}</a>
               {t.demo && <span className="jp">,</span>}
             </span>
           </div>
@@ -56,7 +56,7 @@ function Card({ t, n }: { t: Tool; n: number }) {
             <div className="jl">
               <span className="jk">"demo"</span><span className="jp">:</span>
               <span className="jv">
-                <a href={t.demo} target="_blank" rel="noreferrer">{q(t.demo.replace("https://", ""))}</a>
+                <a className="jdemo" href={t.demo} target="_blank" rel="noreferrer">{q(t.demo.replace("https://", ""))}</a>
               </span>
             </div>
           )}

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { links, segments, type PanelKey } from "./data";
 import About from "./panels/About";
 import Skills from "./panels/Skills";
@@ -32,7 +32,7 @@ const endpoints = [
   { label: "email", href: links.email, text: "Email", icon: icons.email },
   { label: "linkedin", href: links.linkedin, text: "LinkedIn", icon: icons.linkedin },
   { label: "x", href: links.x, text: "X", icon: icons.x },
-  { label: "resume", href: links.resume, text: "Resume", icon: icons.resume, download: true },
+  { label: "resume", href: links.resume, text: "Resume", icon: icons.resume },
 ];
 
 const panels: Record<PanelKey, () => JSX.Element> = {
@@ -46,6 +46,14 @@ const panels: Record<PanelKey, () => JSX.Element> = {
 
 export default function App() {
   const [sel, setSel] = useState<PanelKey>("about");
+  const detailRef = useRef<HTMLDivElement>(null);
+  const pick = (key: PanelKey) => {
+    setSel(key);
+    // on phones the detail sits below the graph, so bring it into view
+    if (window.matchMedia("(max-width: 700px)").matches) {
+      requestAnimationFrame(() => detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+  };
   const selIdx = segments.findIndex((s) => s.key === sel);
   const current = segments[selIdx];
   const Panel = panels[sel];
@@ -57,7 +65,7 @@ export default function App() {
           <span className="mono">
             <strong className="b">agent.spec</strong> <span className="muted">· v1.0</span>
           </span>
-          <span className="mono muted">name: Avishi Mittal · role: ai engineer · mode: read-only · inputs: none</span>
+          <span className="mono muted">name: Avishi Mittal · role: ai engineer · mode: read-only</span>
         </div>
 
         <header className="hero">
@@ -82,7 +90,7 @@ export default function App() {
                 <button
                   className={`node ${state}`}
                   style={{ animationDelay: s.delay }}
-                  onClick={() => setSel(s.key)}
+                  onClick={() => pick(s.key)}
                   aria-pressed={sel === s.key}
                 >
                   <span className="mono nk">{s.folder}/</span>
@@ -96,7 +104,7 @@ export default function App() {
           <span className="gend mono">END</span>
         </div>
 
-        <div className="detail">
+        <div className="detail" ref={detailRef}>
           <div className="dh">
             <div className="mono acc b">› read {current.folder}/</div>
             <h2 className="disp">{current.title}</h2>
@@ -118,9 +126,10 @@ export default function App() {
                 className="fe"
                 key={e.label}
                 href={e.href}
-                {...(e.download ? { download: true } : { target: "_blank", rel: "noreferrer" })}
+                target="_blank"
+                rel="noreferrer"
               >
-                <span className="mono fm"><b>{e.download ? "GET" : "OPEN"}</b> /{e.label}</span>
+                <span className="mono fm"><b>OPEN</b> /{e.label}</span>
                 <span className="frow">
                   <span className="fi" aria-hidden="true">{e.icon}</span>
                   <span className="ft">{e.text}</span>
