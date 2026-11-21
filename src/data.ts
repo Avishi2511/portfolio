@@ -37,9 +37,9 @@ export interface Skill {
 }
 
 export const skills: Skill[] = [
-  { said: "“Can I just ask the database?”", name: "text_to_sql", notWhen: "Not when the schema is small enough for a form.", evidence: "a21.ai · team of 4 · 96% accuracy · 30+ prompts refined" },
+  { said: "“Can I just ask the database?”", name: "text_to_sql", notWhen: "Not when the schema is small enough for a form.", evidence: "team of 4 · 96% accuracy · 30+ prompts refined" },
   { said: "“A person has to sign off first.”", name: "agent_orchestration", notWhen: "Not when one prompt and one call do the job.", evidence: "LangGraph interrupts · Postgres-backed state" },
-  { said: "“It can't find the right passage.”", name: "retrieval", notWhen: "Not when the corpus fits in the prompt.", evidence: "research-rag: BM25 + embeddings · Neo4j traversal at a21.ai" },
+  { said: "“It can't find the right passage.”", name: "hybrid_retrieval", notWhen: "Not when the corpus fits in the prompt.", evidence: "BM25 + embeddings with source citations · Neo4j knowledge-graph traversal" },
   { said: "“What did that run cost?”", name: "llm_observability", notWhen: "Not when you have no traffic yet.", evidence: "Langfuse: prompt versions, tracing, cost, latency" },
   { said: "“Keep the model in its lane.”", name: "guardrails_and_gateways", notWhen: "Not when a provider's built-in filter is enough.", evidence: "llm-gateway" },
   { said: "“Can it just make the call?”", name: "voice_agents", notWhen: "Not when a form is faster.", evidence: "candidate-screener · Basera" },
@@ -88,7 +88,7 @@ export const tools: Tool[] = [
     arg: "patient",
     status: "shipped",
     does: "FHIR R4 backend (8+ resource types), React front end, and a multi-modal LSTM trained on 18,000+ ADNI visits at 0.95 R².",
-    stack: ["Python", "FastAPI", "React", "FHIR R4", "LSTM"],
+    stack: ["Python", "FastAPI", "React", "FHIR R4", "LSTM", "Vercel"],
     repo: "Smart-EHR-System",
     demo: "https://smart-ehr-system.vercel.app",
   },
@@ -97,7 +97,7 @@ export const tools: Tool[] = [
     arg: "question",
     status: "shipped",
     does: "Multi-document hybrid RAG: BM25 plus embeddings, configurable weighting and metadata filters, Gemini answers with source citations.",
-    stack: ["Python", "FastAPI", "ChromaDB", "SQLite"],
+    stack: ["Python", "FastAPI", "Gemini", "ChromaDB", "SQLite"],
     repo: "research-rag",
   },
   {
@@ -105,7 +105,7 @@ export const tools: Tool[] = [
     arg: "bug",
     status: "shipped",
     does: "MERN bug tracker with 3 roles, JWT auth, rate limiting and public bug intake. Deployed on Vercel and Render.",
-    stack: ["React", "Node.js", "MongoDB", "JWT"],
+    stack: ["React", "Node.js", "MongoDB", "JWT", "Vercel", "Render"],
     repo: "bug-tracker",
   },
   {
@@ -114,7 +114,7 @@ export const tools: Tool[] = [
     status: "experimental",
     does: "Webhook delivery with Postgres as the source of truth and a Redis worker pool: retries, dead-letter queue, HMAC signing, per-endpoint ordering and replay.",
     breaksWhen: "no migrations, no SSRF protection on outbound URLs, one Redis instance.",
-    stack: ["Python", "Postgres", "Redis", "Docker"],
+    stack: ["Python", "PostgreSQL", "Redis", "Docker"],
     repo: "webhooks",
   },
   {
@@ -140,8 +140,8 @@ export const deployed: Role[] = [
     title: "Full Stack Developer Intern",
     org: "Shiksha Sathi · remote",
     points: [
-      "Refactored 10+ pages for layout, responsiveness and accessibility.",
-      "Improved performance and backend APIs, raising the mobile PageSpeed SEO score by 130%.",
+      "Refactored 10+ web pages through code reviews to improve layout, responsiveness, and accessibility.",
+      "Optimized website performance and backend APIs, boosting the mobile PageSpeed SEO score by 130%.",
     ],
   },
   {
@@ -149,11 +149,13 @@ export const deployed: Role[] = [
     title: "AI Engineer",
     org: "a21.ai · New Delhi",
     points: [
-      "Led a team of 4 on a text-to-SQL system at 96% accuracy.",
-      "Architected an agentic pipeline on LangGraph with Neo4j knowledge-graph traversal and hybrid retrieval.",
-      "Built human-in-the-loop workflows with LangGraph interrupts and PostgreSQL state persistence.",
-      "Refined 30+ prompts with few-shot and chain-of-thought techniques.",
-      "Instrumented the pipeline with Langfuse for prompt versioning, tracing, cost and latency.",
+      "Led a team of 4 to build a text-to-SQL system with 96% accuracy, enabling natural-language queries on a relational database.",
+      "Delivered modular components in a production AI pipeline with end-to-end ownership, from requirements to integration.",
+      "Refined 30+ prompts using multiple prompt-engineering techniques to improve accuracy and results.",
+      "Architected an agentic pipeline using LangGraph, with Neo4j knowledge-graph traversal and hybrid retrieval.",
+      "Implemented human-in-the-loop (HITL) workflows with LangGraph interrupts and PostgreSQL-backed state persistence.",
+      "Instrumented the LLM pipeline with Langfuse for prompt versioning, tracing, and cost and latency observability.",
+      "Built a 3-tier evaluation layer using automated checks, LLM-as-a-judge, human evaluation, and framed RAG metrics.",
     ],
   },
 ];

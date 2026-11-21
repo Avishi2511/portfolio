@@ -1,5 +1,8 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { links, segments, type PanelKey } from "./data";
+import AgentTrace, { type Run, type Step } from "./AgentTrace";
+import Contact from "./Contact";
+import Reveal from "./Reveal";
 import About from "./panels/About";
 import Skills from "./panels/Skills";
 import Tools from "./panels/Tools";
@@ -35,31 +38,86 @@ const endpoints = [
   { label: "resume", href: links.resume, text: "Resume", icon: icons.resume },
 ];
 
-const panels: Record<PanelKey, () => JSX.Element> = {
-  about: About,
-  skills: Skills,
-  tools: Tools,
-  history: History,
-  traces: Traces,
-  recall: Recall,
-};
+const BOOT: Step[] = [
+  ["observe", "boot · loading system_prompt/"],
+  ["decide", "ready · waiting for input"],
+  ["act", "pick a node to run it"],
+];
 
 export default function App() {
   const [sel, setSel] = useState<PanelKey>("about");
+  const [run, setRun] = useState<Run>({ id: 0, steps: BOOT });
   const detailRef = useRef<HTMLDivElement>(null);
-  const pick = (key: PanelKey) => {
+  const selIdx = segments.findIndex((s) => s.key === sel);
+  const current = segments[selIdx];
+
+  const pick = useCallback((key: PanelKey) => {
+    const seg = segments.find((s) => s.key === key)!;
     setSel(key);
+    setRun((r) => ({
+      id: r.id + 1,
+      steps: [
+        ["observe", `visitor.click("${seg.folder}/")`],
+        ["decide", `route → ${seg.folder}/`],
+        ["act", `render("${seg.label}")`],
+        ["done", "ok"],
+      ],
+    }));
     // on phones the detail sits below the graph, so bring it into view
     if (window.matchMedia("(max-width: 700px)").matches) {
       requestAnimationFrame(() => detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     }
+  }, []);
+
+  // keyboard: left/right arrows move between nodes
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement;
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable) return;
+      if (e.altKey || e.ctrlKey || e.metaKey || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+      const i = segments.findIndex((s) => s.key === sel);
+      pick(segments[(i + (e.key === "ArrowRight" ? 1 : segments.length - 1)) % segments.length].key);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [sel, pick]);
+
+  // ambient motion: scroll progress bar + cursor spotlight on cards
+  useEffect(() => {
+    const root = document.documentElement;
+    const onScroll = () => {
+      const max = root.scrollHeight - window.innerHeight;
+      root.style.setProperty("--scroll", max > 0 ? String(window.scrollY / max) : "0");
+    };
+    const glow = ".jw, .stile, .bub.bot, .fe, .sc, .node, .post, .ccard, .trace, .cside";
+    const onMove = (e: PointerEvent) => {
+      const el = (e.target as HTMLElement).closest<HTMLElement>(glow);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("pointermove", onMove); };
+  }, []);
+
+  const renderPanel = () => {
+    switch (sel) {
+      case "about": return <About />;
+      case "skills": return <Skills />;
+      case "tools": return <Tools />;
+      case "history": return <History />;
+      case "traces": return <Traces />;
+      case "recall": return <Recall />;
+    }
   };
-  const selIdx = segments.findIndex((s) => s.key === sel);
-  const current = segments[selIdx];
-  const Panel = panels[sel];
 
   return (
     <div className="page">
+      <div className="progress" aria-hidden="true" />
+      <div className="aurora" aria-hidden="true" />
       <div className="wrap">
         <div className="bar">
           <span className="mono">
@@ -69,15 +127,18 @@ export default function App() {
         </div>
 
         <header className="hero">
-          <h1 className="disp">Avishi builds agents. This page is one.</h1>
-          <div className="mono">
-            <span className="type">every part of this page is a real part of an agent.</span>
+          <div className="hero-text">
+            <h1 className="disp">Avishi builds agents. This page is one.</h1>
+            <div className="mono">
+              <span className="type">every part of this page is a real part of an agent.</span>
+            </div>
           </div>
+          <AgentTrace run={run} />
         </header>
 
         <div className="ctx-head">
           <span className="mono b">its graph</span>
-          <span className="mono muted loaded">click a node to run it</span>
+          <span className="mono muted loaded">click a node, or use ← → keys</span>
         </div>
 
         <div className="graph" role="group" aria-label="Agent graph">
@@ -111,11 +172,13 @@ export default function App() {
             <p className="muted">{current.hint}</p>
           </div>
           <div className="dr" key={sel}>
-            <Panel />
+            {renderPanel()}
           </div>
         </div>
 
-        <footer className="foot">
+        <Reveal><Contact /></Reveal>
+
+        <Reveal as="footer" className="foot">
           <div className="fhead mono">
             <span className="acc b">› endpoints</span>
             <span className="muted">{endpoints.length} routes · all return 200 OK</span>
@@ -142,7 +205,7 @@ export default function App() {
             <span>© {new Date().getFullYear()} Avishi Mittal</span>
             <span>end of spec · mode: read-only</span>
           </div>
-        </footer>
+        </Reveal>
       </div>
     </div>
   );

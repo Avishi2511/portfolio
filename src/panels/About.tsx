@@ -32,7 +32,7 @@ export default function About() {
         </div>
         <div className="edbody mono">
           {lines.map((l, i) => (
-            <div className="pl" key={i}>
+            <div className="pl" key={i} style={{ ["--n" as string]: i }}>
               <span className="pn">{i + 1}</span>
               <span className={l.head ? "pt hd" : "pt"}>
                 {l.head ? l.text : hl(l.text)}
