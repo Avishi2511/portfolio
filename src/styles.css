@@ -785,3 +785,34 @@ button.stile { font: inherit; color: inherit; cursor: pointer; }
   .cside { margin-top: 22px; }
 }
 .sgroup:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* ===== phones: nothing may be wider than its container ===== */
+.cgrid > *, .cfields > *, .cf { min-width: 0; }
+.cf input, .cf textarea { width: 100%; min-width: 0; }
+@media (max-width: 900px) {
+  .cgrid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  .cfields { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
+  .cf-fill textarea { min-height: 120px; }
+  .cdirect { flex-wrap: wrap; row-gap: 10px; }
+  .cor { flex-basis: 100%; }
+  .contact h2 { font-size: clamp(34px, 10vw, 44px); }
+  .fhead { flex-direction: column; gap: 2px; }
+}
+
+/* ===== phones, round 2 ===== */
+html, body { overflow-x: clip; } /* safety net: never allow sideways scrolling */
+@media (max-width: 700px) {
+  .trace-body { min-height: 0; padding-top: 12px; }
+  .jfn { overflow-wrap: anywhere; word-break: break-word; }
+  .xedu .row .when { flex-basis: 100%; }
+}
+@media (max-width: 380px) {
+  .obj { zoom: .48; }
+  .wrap { padding-left: 14px; padding-right: 14px; }
+  .jbody { font-size: 12.5px; }
+  .hero h1 { font-size: 34px; }
+}
+@media (max-width: 380px) { .ban { flex-wrap: wrap; row-gap: 4px; } .ban s { overflow-wrap: anywhere; } }
+@media (max-width: 700px) { .cside { display: none; } }
