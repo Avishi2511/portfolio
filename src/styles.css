@@ -816,3 +816,38 @@ html, body { overflow-x: clip; } /* safety net: never allow sideways scrolling *
 }
 @media (max-width: 380px) { .ban { flex-wrap: wrap; row-gap: 4px; } .ban s { overflow-wrap: anywhere; } }
 @media (max-width: 700px) { .cside { display: none; } }
+
+/* hero sub-line: plain wrapped text that fades in (no typing effect) */
+.hero .type { display: block; width: auto; max-width: 34em; white-space: normal; overflow: visible; border-right: 0; animation: rise .8s .25s cubic-bezier(.2,.7,.2,1) both; font-size: clamp(14px, 1.5vw, 17px); line-height: 1.6; color: var(--muted); }
+
+/* ===== hero: calmer console, more room for the headline ===== */
+.hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 28px 56px; }
+.hero h1 { font-size: clamp(40px, 5vw, 76px); }
+.trace { max-width: 460px; justify-self: end; width: 100%; }
+.trace-body { min-height: 220px; font-size: 12.5px; padding: 12px 14px 16px; }
+.trace-bar { padding: 8px 12px; }
+.tk { flex-basis: 56px; font-size: 10.5px; }
+.tline { gap: 12px; }
+/* contact now lives inside the footer, below the endpoints */
+.foot .contact { margin-top: 56px; }
+.foot .fend { margin-top: 56px; }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .trace { max-width: none; justify-self: stretch; } .trace-body { min-height: 0; } }
+@media (min-width: 901px) { .trace-body { min-height: 175px; } }
+
+/* ===== activity log: fixed height (the largest it ever reaches), old lines fade out at the top ===== */
+.trace-body { height: 258px; min-height: 0; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22px); mask-image: linear-gradient(to bottom, transparent 0, #000 22px); }
+@media (min-width: 901px) { .trace-body { min-height: 0; } }
+@media (max-width: 380px) { .trace-body { height: 304px; } }
+@media (max-width: 340px) { .trace-body { height: 324px; } }
+
+/* ===== activity log: fixed height (the largest it ever reaches), old lines fade out at the top ===== */
+.trace-body { height: 258px; min-height: 0; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22px); mask-image: linear-gradient(to bottom, transparent 0, #000 22px); }
+@media (min-width: 901px) { .trace-body { min-height: 0; } }
+@media (max-width: 380px) { .trace-body { height: 304px; } }
+@media (max-width: 340px) { .trace-body { height: 324px; } }
+
+/* hero: wider console, balanced columns */
+@media (min-width: 901px) {
+  .hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 28px 48px; }
+  .trace { max-width: 620px; }
+}

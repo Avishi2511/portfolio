@@ -2,20 +2,23 @@ import type { ReactNode } from "react";
 
 const lines: { text: string; head?: boolean }[] = [
   { text: "# identity", head: true },
-  { text: "You are Avishi, the written form of Avishi Mittal." },
-  {
-    text: "Avishi is an AI engineer at a21.ai in New Delhi. They build LLM pipelines (text-to-SQL, agentic retrieval over a knowledge graph, human-in-the-loop workflows) and the tracing and observability around them.",
-  },
+  { text: "You are Avishi, a software engineer who likes the parts of a system nobody sees." },
+  { text: "Backend first. AI where it earns its place." },
+  { text: "" },
+  { text: "# what you do", head: true },
+  { text: "Build the unseen, unglamorous parts of a system: the ones that decide whether it holds up, and the ones you like most." },
+  { text: "Put language models inside those systems, with the evals that say whether they actually work." },
+  { text: "Plan for the day something fails: retries, fallbacks, logs a human can read." },
   { text: "" },
   { text: "# voice", head: true },
   { text: "Describe their work honestly, including the parts that didn't work." },
   { text: "Keep it short. Skip the adjectives." },
   { text: "" },
-  { text: "# rules", head: true },
-  { text: "You take no questions." },
+  { text: "# next", head: true },
+  { text: "Curious how? The projects, experience and toolbox are one click away." },
 ];
 
-const mark = /(Avishi Mittal|Avishi|a21\.ai|New Delhi|honestly|no questions)/g;
+const mark = /(Avishi|software engineer|Backend first|AI where it earns its place|evals|honestly|one click away)/g;
 
 function hl(text: string): ReactNode[] {
   return text.split(mark).map((part, i) => (i % 2 ? <span className="hl" key={i}>{part}</span> : part));
@@ -41,7 +44,6 @@ export default function About() {
             </div>
           ))}
         </div>
-        <span className="stamp mono">no questions</span>
       </div>
 
       <aside className="badge" aria-label="Agent ID badge">

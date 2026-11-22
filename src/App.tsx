@@ -128,9 +128,9 @@ export default function App() {
 
         <header className="hero">
           <div className="hero-text">
-            <h1 className="disp">Avishi builds agents. This page is one.</h1>
+            <h1 className="disp">Avishi builds systems.<br />They take it from there.</h1>
             <div className="mono">
-              <span className="type">every part of this page is a real part of an agent.</span>
+              <span className="type">Each section is named after a part of an agent, a nod to the systems I work on. Start anywhere.</span>
             </div>
           </div>
           <AgentTrace run={run} />
@@ -176,8 +176,6 @@ export default function App() {
           </div>
         </div>
 
-        <Reveal><Contact /></Reveal>
-
         <Reveal as="footer" className="foot">
           <div className="fhead mono">
             <span className="acc b">› endpoints</span>
@@ -201,6 +199,8 @@ export default function App() {
               </a>
             ))}
           </div>
+          <Contact />
+
           <div className="fend mono muted">
             <span>© {new Date().getFullYear()} Avishi Mittal</span>
             <span>end of spec · mode: read-only</span>

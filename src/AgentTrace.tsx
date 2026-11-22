@@ -26,11 +26,10 @@ export default function AgentTrace({ run }: { run: Run }) {
   }, [run]);
 
   return (
-    <div className="trace" aria-label="Live agent run log" role="log">
+    <div className="trace" aria-label="Activity log" role="log">
       <div className="trace-bar mono">
         <span className="dots" aria-hidden="true"><i /><i /><i /></span>
-        <span>agent.run</span>
-        <span className="trace-live"><b /> live</span>
+        <span>activity log</span>
       </div>
       <div className="trace-body mono">
         {lines.map((l) => (
